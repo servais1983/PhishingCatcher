@@ -141,6 +141,72 @@ streamlit run app.py
 - **Export** : FPDF2
 - **Sécurité** : urllib3, dnspython, utilisateur non-root
 
+## 🐳 Dockerfile - Sandbox Sécurisée
+
+Le `Dockerfile` est un composant essentiel d'APLA qui crée un **environnement d'analyse isolé et sécurisé** pour tester les URLs suspectes.
+
+### 🎯 **Utilité principale :**
+- **Isolation complète** : Les tests d'URLs se font dans un conteneur Docker séparé
+- **Sécurité renforcée** : Environnement isolé du système hôte
+- **Analyse dynamique** : Test en temps réel des liens de phishing
+- **Captures d'écran** : Génération automatique de screenshots des pages
+
+### 🔧 **Fonctionnalités du Dockerfile :**
+
+#### **1. Environnement sécurisé**
+```dockerfile
+# Image Python 3.12-slim optimisée
+FROM python:3.12-slim
+
+# Utilisateur non-root pour la sécurité
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+USER appuser
+```
+
+#### **2. Navigateur automatisé**
+```dockerfile
+# Installation de Google Chrome pour l'analyse
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
+RUN apt-get install -y google-chrome-stable
+```
+
+#### **3. Outils d'analyse**
+```dockerfile
+# Selenium pour l'automatisation web
+RUN pip install selenium==4.15.0 webdriver-manager==4.0.2
+```
+
+### 🚀 **Comment ça fonctionne :**
+
+1. **Déclenchement** : Quand APLA détecte une URL suspecte
+2. **Création du conteneur** : Docker lance une instance du sandbox
+3. **Analyse dynamique** : Le conteneur visite l'URL et analyse :
+   - Redirections et finalités
+   - Contenu de la page
+   - Captures d'écran
+   - Comportements suspects
+4. **Nettoyage** : Le conteneur est automatiquement supprimé après analyse
+
+### 🛡️ **Avantages de sécurité :**
+- **Isolation** : Aucun impact sur le système hôte
+- **Utilisateur non-root** : Droits limités dans le conteneur
+- **Nettoyage automatique** : Pas de traces après analyse
+- **Versions sécurisées** : Dépendances à jour et vérifiées
+
+### 📊 **Exemple d'utilisation :**
+```python
+# Dans app.py - Analyse d'URL suspecte
+def analyze_url_dynamically(url):
+    # Lancement du conteneur Docker
+    container = client.containers.run(
+        "phishing-sandbox:latest",
+        command=f"python sandbox_script.py {url}",
+        detach=True,
+        remove=True  # Auto-nettoyage
+    )
+    # Analyse des résultats...
+```
+
 ## 📊 Exemple d'utilisation - TESTÉ ET VALIDÉ
 
 1. **Démarrage** : Lancez `streamlit run app.py`
