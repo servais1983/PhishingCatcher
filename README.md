@@ -1,3 +1,5 @@
+![image](phishing.png)
+
 # PhinshingCatcher - Analyseur de Phishing Local Augmenté 🛡️
 
 Un outil d'analyse de phishing sur mesure, rapide et sécurisé avec IA locale intégrée.
