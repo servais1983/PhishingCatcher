@@ -160,11 +160,30 @@ pip install docker>=6.1.0
 
 ## 🔧 Configuration
 
-### Variables d'environnement (optionnel)
-```bash
-# VirusTotal API Key (optionnel)
-export VIRUSTOTAL_API_KEY="your_api_key_here"
+### Clé API VirusTotal (Optionnel mais recommandé)
+
+**Fichier à modifier :** `app.py` (ligne 20)
+
+**Localisation :**
+```python
+# Ligne 20 dans app.py
+VT_API_KEY = "VOTRE_CLE_API_VIRUSTOTAL_ICI"
 ```
+
+**Instructions :**
+1. Obtenez votre clé API gratuite sur [VirusTotal](https://www.virustotal.com/gui/join-us)
+2. Remplacez `"VOTRE_CLE_API_VIRUSTOTAL_ICI"` par votre vraie clé API
+3. Exemple : `VT_API_KEY = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"`
+
+**⚠️ Sécurité :**
+- Ne partagez JAMAIS votre clé API
+- N'ajoutez pas la clé dans les commits Git
+- Utilisez un fichier `.env` pour la production
+
+**Méthode alternative (recommandée) :**
+1. Copiez le fichier `env.example` vers `.env`
+2. Modifiez le fichier `.env` avec votre clé API
+3. Le fichier `.env` est automatiquement ignoré par Git
 
 ### Ports utilisés
 - **Streamlit** : 8501 (par défaut)

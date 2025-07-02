@@ -18,7 +18,7 @@ import io
 
 # --- CONFIGURATION ---
 # Clé API VirusTotal pour l'analyse Threat Intelligence
-VT_API_KEY = "3136c308ce9db10a8dadb4f42c4032009b031598fe5706d2c0337ddf8c8acb8d"
+VT_API_KEY = "VOTRE_CLE_API_VIRUSTOTAL_ICI"
 VT_API_URL_REPORT = "https://www.virustotal.com/api/v3/urls/"
 
 # --- Fonctions d'extraction et d'analyse (les précédentes sont inchangées) ---
