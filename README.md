@@ -1,4 +1,4 @@
-# APLA - Analyseur de Phishing Local Augmenté 🛡️
+# PhinshingCatcher - Analyseur de Phishing Local Augmenté 🛡️
 
 Un outil d'analyse de phishing sur mesure, rapide et sécurisé avec IA locale intégrée.
 
