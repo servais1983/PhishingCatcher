@@ -1,50 +1,53 @@
 ![image](phishing.png)
 
-# PhinshingCatcher - Analyseur de Phishing Local Augmenté 🛡️
+# PhishingCatcher - Analyseur de Phishing Local Augmenté
 
-Un outil d'analyse de phishing sur mesure, rapide et sécurisé avec IA locale intégrée.
+Un outil d'analyse de phishing sur mesure, rapide et sécurisé avec intelligence artificielle locale intégrée.
 
-## 🎯 Concept
+## Concept
 
-APLA applique le principe de **confiance zéro** à l'analyse de phishing. Contrairement aux services en ligne, tout le traitement se fait en local, garantissant la confidentialité totale des données analysées.
+PhishingCatcher applique le principe de **confiance zéro** à l'analyse de phishing. Contrairement aux services en ligne, tout le traitement se fait en local, garantissant la confidentialité totale des données analysées.
 
-## 🏗️ Architecture Modulaire
+## Architecture Modulaire
 
-### Module 1 : Ingestion et Parsing d'email ✅
+### Module 1 : Ingestion et Parsing d'email
 - Support des formats `.eml` (`.msg` temporairement désactivé)
 - Extraction des en-têtes, corps, URLs et pièces jointes
 - Interface drag & drop intuitive
 
-### Module 2 : Analyse Statique Intelligente ✅
+### Module 2 : Analyse Statique Intelligente
 - Vérification SPF/DKIM/DMARC
 - Détection d'usurpation d'identité
 - Analyse des URLs (Punycode, sous-domaines suspects)
 - Détection de mots-clés de phishing
 - Intégration VirusTotal pour la réputation des URLs
 
-### Module 3 : IA Locale ✅
+### Module 3 : Intelligence Artificielle Locale
 - Modèle Phi-3 via Ollama pour analyse sémantique
 - Analyse du contenu et des indicateurs de phishing
 - Score de risque intelligent
 
-### Module 4 : Sandbox Dynamique ✅
+### Module 4 : Sandbox Dynamique
 - Environnement isolé Docker pour test des liens
 - Surveillance des redirections et captures d'écran
 - Conteneurisation sécurisée avec Selenium
 
-### Module 5 : Export et Rapports ✅
+### Module 5 : Export et Rapports
 - Génération de rapports PDF détaillés
 - Export des résultats d'analyse
 - Interface moderne et responsive
 
-## 🚀 Installation
+## Installation
 
 ### Prérequis
 - Python 3.12+
 - Docker (pour la sandbox dynamique)
 - Ollama (pour l'IA locale)
 
-### ⚡ Installation express
+### Démarrage Rapide (Windows)
+Double-cliquez sur `start.bat` pour un démarrage automatique avec vérifications.
+
+### Installation Express
 ```bash
 # 1. Cloner le repository
 git clone https://github.com/servais1983/PhishingCatcher.git
@@ -60,8 +63,7 @@ ollama pull phi3
 streamlit run app.py
 ```
 
-### 🎯 **Prêt en 5 minutes !**
-L'application sera accessible sur http://localhost:8501
+**Prêt en 5 minutes !** L'application sera accessible sur http://localhost:8501
 
 ### Installation d'Ollama
 ```bash
@@ -76,7 +78,7 @@ winget install Ollama.Ollama
 ollama pull phi3
 ```
 
-### Installation du projet (méthode complète)
+### Installation Complète
 ```bash
 # Cloner le repository
 git clone https://github.com/servais1983/PhishingCatcher.git
@@ -94,36 +96,36 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## 📋 Fonctionnalités
+## Fonctionnalités
 
-### ✅ Phase 1 (MVP) - Complète
-- [x] Parsing d'emails (.eml)
-- [x] Analyse des en-têtes (SPF, DKIM, DMARC)
-- [x] Extraction et analyse des URLs
-- [x] Détection de mots-clés de phishing
-- [x] Interface Streamlit moderne
-- [x] Vérification VirusTotal des URLs
+### Phase 1 (MVP) - Complète
+- Parsing d'emails (.eml)
+- Analyse des en-têtes (SPF, DKIM, DMARC)
+- Extraction et analyse des URLs
+- Détection de mots-clés de phishing
+- Interface Streamlit moderne
+- Vérification VirusTotal des URLs
 
-### ✅ Phase 2 - IA Locale - Complète
-- [x] Modèle IA local (Phi-3 via Ollama)
-- [x] Analyse sémantique avancée
-- [x] Score de risque intelligent
-- [x] Détection d'indicateurs de phishing
+### Phase 2 - IA Locale - Complète
+- Modèle IA local (Phi-3 via Ollama)
+- Analyse sémantique avancée
+- Score de risque intelligent
+- Détection d'indicateurs de phishing
 
-### ✅ Phase 3 - Sandbox Dynamique - Complète
-- [x] Sandbox Docker sécurisée
-- [x] Analyse des redirections
-- [x] Captures d'écran des pages
-- [x] Surveillance des téléchargements
-- [x] Environnement isolé
+### Phase 3 - Sandbox Dynamique - Complète
+- Sandbox Docker sécurisée
+- Analyse des redirections
+- Captures d'écran des pages
+- Surveillance des téléchargements
+- Environnement isolé
 
-### ✅ Phase 4 - Export et Rapports - Complète
-- [x] Génération de rapports PDF
-- [x] Export des résultats
-- [x] Interface utilisateur moderne
-- [x] Analyse des pièces jointes
+### Phase 4 - Export et Rapports - Complète
+- Génération de rapports PDF
+- Export des résultats
+- Interface utilisateur moderne
+- Analyse des pièces jointes
 
-## 🔒 Sécurité
+## Sécurité
 
 - **Traitement 100% local** : Aucune donnée envoyée à l'extérieur
 - **Environnement isolé** : Sandbox Docker pour les tests dynamiques
@@ -133,7 +135,7 @@ streamlit run app.py
 - **Clés API sécurisées** : Placeholders dans le code, configuration via .env
 - **Repository sécurisé** : .gitignore pour exclure les fichiers sensibles
 
-## 🛠️ Stack Technique
+## Stack Technique
 
 - **Backend** : Python 3.12+
 - **IA/ML** : Ollama + Phi-3
@@ -143,19 +145,19 @@ streamlit run app.py
 - **Export** : FPDF2
 - **Sécurité** : urllib3, dnspython, utilisateur non-root
 
-## 🐳 Dockerfile - Sandbox Sécurisée
+## Dockerfile - Sandbox Sécurisée
 
-Le `Dockerfile` est un composant essentiel d'APLA qui crée un **environnement d'analyse isolé et sécurisé** pour tester les URLs suspectes.
+Le `Dockerfile` est un composant essentiel de PhishingCatcher qui crée un **environnement d'analyse isolé et sécurisé** pour tester les URLs suspectes.
 
-### 🎯 **Utilité principale :**
+### Utilité principale
 - **Isolation complète** : Les tests d'URLs se font dans un conteneur Docker séparé
 - **Sécurité renforcée** : Environnement isolé du système hôte
 - **Analyse dynamique** : Test en temps réel des liens de phishing
 - **Captures d'écran** : Génération automatique de screenshots des pages
 
-### 🔧 **Fonctionnalités du Dockerfile :**
+### Fonctionnalités du Dockerfile
 
-#### **1. Environnement sécurisé**
+#### Environnement sécurisé
 ```dockerfile
 # Image Python 3.12-slim optimisée
 FROM python:3.12-slim
@@ -165,22 +167,22 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 USER appuser
 ```
 
-#### **2. Navigateur automatisé**
+#### Navigateur automatisé
 ```dockerfile
 # Installation de Google Chrome pour l'analyse
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
 RUN apt-get install -y google-chrome-stable
 ```
 
-#### **3. Outils d'analyse**
+#### Outils d'analyse
 ```dockerfile
 # Selenium pour l'automatisation web
 RUN pip install selenium==4.15.0 webdriver-manager==4.0.2
 ```
 
-### 🚀 **Comment ça fonctionne :**
+### Fonctionnement
 
-1. **Déclenchement** : Quand APLA détecte une URL suspecte
+1. **Déclenchement** : Quand PhishingCatcher détecte une URL suspecte
 2. **Création du conteneur** : Docker lance une instance du sandbox
 3. **Analyse dynamique** : Le conteneur visite l'URL et analyse :
    - Redirections et finalités
@@ -189,13 +191,13 @@ RUN pip install selenium==4.15.0 webdriver-manager==4.0.2
    - Comportements suspects
 4. **Nettoyage** : Le conteneur est automatiquement supprimé après analyse
 
-### 🛡️ **Avantages de sécurité :**
+### Avantages de sécurité
 - **Isolation** : Aucun impact sur le système hôte
 - **Utilisateur non-root** : Droits limités dans le conteneur
 - **Nettoyage automatique** : Pas de traces après analyse
 - **Versions sécurisées** : Dépendances à jour et vérifiées
 
-### 📊 **Exemple d'utilisation :**
+### Exemple d'utilisation
 ```python
 # Dans app.py - Analyse d'URL suspecte
 def analyze_url_dynamically(url):
@@ -209,11 +211,11 @@ def analyze_url_dynamically(url):
     # Analyse des résultats...
 ```
 
-## 📊 Exemple d'utilisation - TESTÉ ET VALIDÉ
+## Exemple d'utilisation - Testé et Validé
 
 1. **Démarrage** : Lancez `streamlit run app.py`
 2. **Upload** : Déposez un fichier `.eml` suspect dans l'interface
-3. **Analyse automatique** : APLA analyse :
+3. **Analyse automatique** : PhishingCatcher analyse :
    - Les en-têtes d'authentification (SPF/DKIM/DMARC)
    - Les URLs et leur réputation (VirusTotal)
    - Le contenu sémantique (IA Phi-3)
@@ -222,15 +224,15 @@ def analyze_url_dynamically(url):
    - Les redirections (sandbox dynamique)
 4. **Rapport** : Recevez un rapport PDF détaillé avec score de risque
 
-### 🎯 **Résultats de test réels :**
-- **Email de phishing détecté** : ✅ Classification "PHISHING" 
+### Résultats de test réels
+- **Email de phishing détecté** : Classification "PHISHING" 
 - **URL malveillante** : `https://microsoft-verify-secure.com/login` détectée
 - **Usurpation d'identité** : Microsoft correctement identifié
 - **Sandbox dynamique** : Fonctionnelle (erreur DNS normale pour URL inexistante)
 - **Export PDF** : Généré avec succès
 - **Interface** : Moderne et responsive
 
-## 🐛 Résolution des problèmes
+## Résolution des problèmes
 
 ### Erreur "ModuleNotFoundError: No module named 'ollama'"
 ```bash
@@ -255,7 +257,7 @@ pip install docker>=6.1.0
 - Installez Docker Desktop
 - Assurez-vous que Docker est démarré
 
-## 🔧 Configuration
+## Configuration
 
 ### Clé API VirusTotal (Optionnel mais recommandé)
 
@@ -272,7 +274,7 @@ VT_API_KEY = "VOTRE_CLE_API_VIRUSTOTAL_ICI"
 2. Remplacez `"VOTRE_CLE_API_VIRUSTOTAL_ICI"` par votre vraie clé API
 3. Exemple : `VT_API_KEY = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"`
 
-**⚠️ Sécurité :**
+**Sécurité :**
 - Ne partagez JAMAIS votre clé API
 - N'ajoutez pas la clé dans les commits Git
 - Utilisez un fichier `.env` pour la production
@@ -286,7 +288,7 @@ VT_API_KEY = "VOTRE_CLE_API_VIRUSTOTAL_ICI"
 - **Streamlit** : 8501 (par défaut)
 - **Docker** : Ports dynamiques pour la sandbox
 
-## 🤝 Contribution
+## Contribution
 
 Ce projet est en développement actif. Les contributions sont les bienvenues !
 
@@ -297,48 +299,63 @@ Ce projet est en développement actif. Les contributions sont les bienvenues !
 4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrez une Pull Request
 
-## 📄 Licence
+## Licence
 
 MIT License - Voir le fichier LICENSE pour plus de détails.
 
-## 🆕 Changelog
+## Changelog
 
-### Version 2.1.0 (Actuelle) - ✅ TESTÉ ET FONCTIONNEL
-- ✅ Correction complète des vulnérabilités Docker
-- ✅ Mise à jour vers Python 3.12
-- ✅ Dockerfile sécurisé avec utilisateur non-root
-- ✅ Fichier .dockerignore pour la sécurité
-- ✅ Intégration complète d'Ollama + Phi-3
-- ✅ Sandbox dynamique fonctionnelle (testée avec succès)
-- ✅ Export PDF sans erreurs
-- ✅ Interface Streamlit moderne
-- ✅ Support VirusTotal (clé API sécurisée)
-- ✅ Correction des dépendances manquantes
-- ✅ Détection de phishing testée et validée
-- ✅ Sécurisation des clés API (placeholder)
-- ✅ Repository GitHub prêt à l'utilisation
+### Version 2.1.0 (Actuelle) - Testé et Fonctionnel
+- Correction complète des vulnérabilités Docker
+- Mise à jour vers Python 3.12
+- Dockerfile sécurisé avec utilisateur non-root
+- Fichier .dockerignore pour la sécurité
+- Intégration complète d'Ollama + Phi-3
+- Sandbox dynamique fonctionnelle (testée avec succès)
+- Export PDF sans erreurs
+- Interface Streamlit moderne
+- Support VirusTotal (clé API sécurisée)
+- Correction des dépendances manquantes
+- Détection de phishing testée et validée
+- Sécurisation des clés API (placeholder)
+- Repository GitHub prêt à l'utilisation
 
 ### Version 1.0.0
-- ✅ MVP avec parsing d'emails
-- ✅ Analyse statique basique
+- MVP avec parsing d'emails
+- Analyse statique basique
 
 ---
 
-## 🎉 **Statut du projet : PRÊT POUR LA PRODUCTION**
+## Optimisations Récentes
 
-### ✅ **APLA v2.1.0 est maintenant :**
+### Nettoyage du Code
+- **Dépendances optimisées** : Suppression des bibliothèques inutilisées (gradio, pandas, numpy, plotly, matplotlib, html2text, click, tqdm)
+- **Structure simplifiée** : Suppression du dossier `src/` inutilisé
+- **Fichier de démarrage** : Ajout de `start.bat` pour Windows avec vérifications automatiques
+- **Sécurité renforcée** : Ajout de `temp_email_file` au `.gitignore`
+
+### Démarrage Simplifié
+Le fichier `start.bat` automatise :
+- Vérification de Python 3.12+
+- Installation automatique des dépendances
+- Vérification d'Ollama et Docker
+- Démarrage de l'application Streamlit
+
+## Statut du projet : Prêt pour la Production
+
+### PhishingCatcher v2.1.0 est maintenant :
 - **Fonctionnel** : Toutes les fonctionnalités testées et validées
 - **Sécurisé** : Vulnérabilités corrigées, clés API protégées
+- **Optimisé** : Code nettoyé et dépendances minimales
 - **Documenté** : README complet avec instructions d'installation
 - **Prêt à l'usage** : Repository GitHub configuré et opérationnel
 
-### 🚀 **Prochaines étapes possibles :**
+### Prochaines étapes possibles :
 - Déploiement en production
 - Tests avec d'autres types d'emails de phishing
 - Amélioration de l'interface utilisateur
 - Ajout de nouveaux modèles IA
 - Intégration avec d'autres outils de sécurité
 
-### 📞 **Support :**
-Pour toute question ou problème, ouvrez une issue sur GitHub.
-- ✅ Interface Streamlit 
+### Support :
+Pour toute question ou problème, ouvrez une issue sur GitHub. 

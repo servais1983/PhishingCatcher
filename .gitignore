@@ -41,6 +41,7 @@ logs/
 # Fichiers temporaires
 *.tmp
 *.temp
+temp_email_file
 .DS_Store
 Thumbs.db
 
