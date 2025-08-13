@@ -65,14 +65,14 @@ A comprehensive phishing analysis tool that combines local artificial intelligen
 ### Quick Start (Windows)
 
 1. **Download the project** :
-```bash
+   ```bash
    git clone https://github.com/your-username/PhishingCatcher.git
-cd PhishingCatcher
+   cd PhishingCatcher
    ```
 
 2. **Install dependencies** :
    ```bash
-pip install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
 3. **Launch the application** :
@@ -96,22 +96,22 @@ pip install -r requirements.txt
    ```
 
 3. **Install dependencies** :
-```bash
+   ```bash
    pip install -r requirements.txt
-```
+   ```
 
 4. **Configure Ollama** :
-```bash
+   ```bash
    # Install Ollama from https://ollama.ai
-ollama pull phi3
-```
+   ollama pull phi3
+   ```
 
 5. **Start Docker Desktop** (for dynamic analysis)
 
 6. **Launch the application** :
-```bash
-streamlit run app.py
-```
+   ```bash
+   streamlit run app.py
+   ```
 
 ## 🔧 Configuration
 
@@ -198,10 +198,10 @@ VirusTotal : No malicious detections
 - Dynamic analysis will be disabled
 
 ### Dependency Issues
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt --force-reinstall
-```
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt --force-reinstall
+   ```
 
 ## 📁 Project Structure
 
