@@ -43,7 +43,7 @@ coverage.xml
 *.cover
 .hypothesis/
 
-# Fichiers de configuration
+# Configuration files
 .env
 .env.local
 .env.development.local

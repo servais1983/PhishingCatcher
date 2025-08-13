@@ -3,7 +3,7 @@
 import sys
 import json
 import socket
-import base64 # Pour encoder l'image
+import base64 # To encode the image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -17,19 +17,19 @@ def analyze_url(url):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    # On définit une taille de fenêtre pour avoir une capture d'écran cohérente
+    # We define a window size for consistent screenshot
     chrome_options.add_argument("--window-size=1280,800")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
 
-    # Utilisation de webdriver-manager pour gérer ChromeDriver automatiquement
+    # Using webdriver-manager to automatically manage ChromeDriver
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     
-    result = { "status": "error" } # Initialisation
+    result = { "status": "error" } # Initialization
 
     try:
         driver.get(url)
-        # On attend un peu que la page se charge (ex: que le body soit présent)
+        # We wait a bit for the page to load (e.g., body to be present)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
         final_url = driver.current_url
@@ -38,18 +38,18 @@ def analyze_url(url):
         try:
             ip_address = socket.gethostbyname(domain)
         except socket.gaierror:
-            pass # L'adresse n'a pas pu être résolue
+            pass # Address could not be resolved
 
-        # Prise de la capture d'écran
+        # Taking screenshot
         screenshot_bytes = driver.get_screenshot_as_png()
         screenshot_base64 = base64.b64encode(screenshot_bytes).decode('utf-8')
 
-        # Préparation du résultat en JSON
+        # Preparing JSON result
         result = {
             "initial_url": url,
             "final_url": final_url,
             "final_ip": ip_address,
-            "screenshot_base64": screenshot_base64, # On ajoute l'image encodée
+            "screenshot_base64": screenshot_base64, # We add the encoded image
             "status": "success"
         }
     except Exception as e:
@@ -57,7 +57,7 @@ def analyze_url(url):
     finally:
         driver.quit()
 
-    # Le résultat est printé en JSON pour être récupéré par l'application principale
+    # The result is printed in JSON to be retrieved by the main application
     print(json.dumps(result))
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ venv/
 env/
 ENV/
 
-# Fichiers de configuration sensibles
+# Sensitive configuration files
 .env
 .env.local
 .env.development
