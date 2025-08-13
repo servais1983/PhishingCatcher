@@ -18,7 +18,8 @@ import io
 
 # --- CONFIGURATION ---
 # Clé API VirusTotal pour l'analyse Threat Intelligence
-VT_API_KEY = "VOTRE_CLE_API_VIRUSTOTAL_ICI"
+# Obtenez votre clé gratuite sur https://www.virustotal.com/gui/join-us
+VT_API_KEY = os.getenv('VIRUSTOTAL_API_KEY', "VOTRE_CLE_API_VIRUSTOTAL_ICI")
 VT_API_URL_REPORT = "https://www.virustotal.com/api/v3/urls/"
 
 # --- Fonctions d'extraction et d'analyse (les précédentes sont inchangées) ---
@@ -383,8 +384,13 @@ def generate_pdf_report(report_data):
         return bytes(pdf.output(dest='S'))
 
 # --- Interface Streamlit ---
-st.set_page_config(layout="wide", page_title="APLA - Analyseur de Phishing")
-st.title("🕵️ APLA - Analyseur de Phishing (avec IA Phi-3)")
+st.set_page_config(layout="wide", page_title="PhishingCatcher - Analyseur de Phishing")
+st.title("PhishingCatcher - Analyseur de Phishing Local")
+
+# Information sur la configuration
+if VT_API_KEY == "VOTRE_CLE_API_VIRUSTOTAL_ICI":
+    st.warning("⚠️ **Configuration VirusTotal requise** : Pour utiliser l'analyse VirusTotal, configurez votre clé API dans le fichier `.env` ou modifiez `app.py` ligne 20.")
+    st.info("📋 **Instructions :** 1. Obtenez une clé gratuite sur https://www.virustotal.com/gui/join-us 2. Créez un fichier `.env` avec `VIRUSTOTAL_API_KEY=votre_cle_ici`")
 
 uploaded_file = st.file_uploader("Choisissez un fichier email", type=['eml', 'msg'])
 
@@ -478,26 +484,28 @@ if uploaded_file is not None:
             else:
                 st.info("Analyse des en-têtes non disponible pour les fichiers .msg.")
 
-        with st.expander("🔗 Voir l'analyse des URLs"):
-            urls_found = report_data["urls"]
-            if not urls_found:
-                st.info("Aucun lien hypertexte (URL) trouvé.")
-            else:
-                for i, item in enumerate(urls_found):
-                    st.write(f"**Texte affiché :** `{item['text']}`")
-                    st.write(f"**URL réelle :** `{item['url']}`")
-                    if ("http" in item['text'] or "www" in item['text']) and item['text'] != item['url']:
-                        st.error("⚠️ **ALERTE :** L'URL affichée est différente de l'URL réelle !")
-                    
-                                        # On crée des colonnes pour aligner les boutons
-                    col1, col2 = st.columns(2)
+        st.subheader("Analyse des URLs et Fonctionnalités Avancées")
+        urls_found = report_data["urls"]
+        if not urls_found:
+            st.info("Aucun lien hypertexte (URL) trouvé.")
+        else:
+            st.write(f"**{len(urls_found)} URL(s) détectée(s) :**")
+            for i, item in enumerate(urls_found):
+                st.write(f"**URL {i+1} :**")
+                st.write(f"  - Texte affiché : `{item['text']}`")
+                st.write(f"  - URL réelle : `{item['url']}`")
+                if ("http" in item['text'] or "www" in item['text']) and item['text'] != item['url']:
+                    st.error("⚠️ **ALERTE :** L'URL affichée est différente de l'URL réelle !")
+                
+                # On crée des colonnes pour aligner les boutons
+                col1, col2 = st.columns(2)
                     
                     # Initialiser l'état de la session si ce n'est pas déjà fait
                     if 'dynamic_reports' not in st.session_state:
                         st.session_state.dynamic_reports = {}
 
                     with col1:
-                        if st.button(f"🔎 Lancer l'analyse dynamique", key=f"dyn_{i}"):
+                        if st.button(f"Lancer l'analyse dynamique (Sandbox)", key=f"dyn_{i}"):
                             with st.spinner(f"Analyse de {item['url']} dans la sandbox..."):
                                 docker_client = get_docker_client() # Cette fonction gère la reconstruction de l'image
                                 dynamic_report = run_dynamic_analysis(docker_client, item['url'])
@@ -527,7 +535,7 @@ if uploaded_file is not None:
                                     st.json(dynamic_report) # Affiche l'erreur
 
                     with col2:
-                        if st.button(f"🦠 Vérifier avec VirusTotal", key=f"vt_{i}"):
+                        if st.button(f"Vérifier avec VirusTotal", key=f"vt_{i}"):
                             with st.spinner(f"Interrogation de VirusTotal pour {item['url']}..."):
                                 vt_report = analyze_with_virustotal(item['url'])
                                 
@@ -554,7 +562,7 @@ if uploaded_file is not None:
                     st.write(f"**Fichier :** `{att['filename']}`")
                     st.code(f"SHA-256: {att['hash']}", language="text")
                     
-                    if st.button(f"🦠 Vérifier la pièce jointe sur VirusTotal", key=f"vt_att_{i}"):
+                    if st.button(f"Vérifier la pièce jointe sur VirusTotal", key=f"vt_att_{i}"):
                         with st.spinner(f"Interrogation de VirusTotal pour {att['filename']}..."):
                             vt_report = analyze_hash_with_virustotal(att['hash'])
                             if vt_report.get("status") == "success":
@@ -578,9 +586,9 @@ if uploaded_file is not None:
         pdf_bytes = generate_pdf_report(report_data)
         
         st.download_button(
-            label="📄 Télécharger le Rapport d'Analyse (.pdf)",
+            label="Télécharger le Rapport d'Analyse (.pdf)",
             data=pdf_bytes,
-            file_name=f"APLA_Report_{uploaded_file.name}.pdf",
+            file_name=f"PhishingCatcher_Report_{uploaded_file.name}.pdf",
             mime="application/pdf"
         )
 

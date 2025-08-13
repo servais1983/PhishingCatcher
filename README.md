@@ -43,6 +43,7 @@ PhishingCatcher applique le principe de **confiance zéro** à l'analyse de phis
 - Python 3.12+
 - Docker (pour la sandbox dynamique)
 - Ollama (pour l'IA locale)
+- **Clé API VirusTotal** (gratuite) pour l'analyse des URLs et fichiers
 
 ### Démarrage Rapide (Windows)
 Double-cliquez sur `start.bat` pour un démarrage automatique avec vérifications.
@@ -59,11 +60,17 @@ pip install -r requirements.txt
 # 3. Configurer Ollama (si pas déjà fait)
 ollama pull phi3
 
-# 4. Démarrer l'application
+# 4. Configurer VirusTotal (RECOMMANDÉ)
+cp env.example .env
+# Éditez .env avec votre clé API VirusTotal
+
+# 5. Démarrer l'application
 streamlit run app.py
 ```
 
 **Prêt en 5 minutes !** L'application sera accessible sur http://localhost:8501
+
+**Note :** Pour une analyse complète, configurez votre clé API VirusTotal (gratuite) dans le fichier `.env`.
 
 ### Installation d'Ollama
 ```bash
@@ -257,32 +264,61 @@ pip install docker>=6.1.0
 - Installez Docker Desktop
 - Assurez-vous que Docker est démarré
 
+### Erreur VirusTotal "Clé API non configurée"
+- Obtenez votre clé API gratuite sur [VirusTotal](https://www.virustotal.com/gui/join-us)
+- Créez un fichier `.env` avec `VIRUSTOTAL_API_KEY=votre_cle_ici`
+- Ou modifiez directement `app.py` ligne 21
+
 ## Configuration
 
-### Clé API VirusTotal (Optionnel mais recommandé)
+### Clé API VirusTotal - REQUISE pour l'analyse des URLs et fichiers
 
-**Fichier à modifier :** `app.py` (ligne 20)
+**⚠️ IMPORTANT :** Sans cette clé, les fonctionnalités VirusTotal ne fonctionneront pas !
 
-**Localisation :**
+#### Méthode 1 - Fichier .env (RECOMMANDÉ)
+
+1. **Obtenez votre clé API gratuite :**
+   - Allez sur [VirusTotal](https://www.virustotal.com/gui/join-us)
+   - Créez un compte gratuit
+   - Récupérez votre clé API dans votre profil
+
+2. **Configurez la clé :**
+   ```bash
+   # Copiez le fichier d'exemple
+   cp env.example .env
+   
+   # Éditez le fichier .env
+   # Remplacez "your_virustotal_api_key_here" par votre vraie clé
+   ```
+
+3. **Exemple de fichier .env :**
+   ```
+   VIRUSTOTAL_API_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+   ```
+
+#### Méthode 2 - Modification directe du code
+
+**Fichier à modifier :** `app.py` (ligne 21)
+
 ```python
-# Ligne 20 dans app.py
-VT_API_KEY = "VOTRE_CLE_API_VIRUSTOTAL_ICI"
+# Ligne 21 dans app.py
+VT_API_KEY = os.getenv('VIRUSTOTAL_API_KEY', "VOTRE_CLE_API_VIRUSTOTAL_ICI")
+# Remplacez par :
+VT_API_KEY = "votre_cle_api_ici"
 ```
 
-**Instructions :**
-1. Obtenez votre clé API gratuite sur [VirusTotal](https://www.virustotal.com/gui/join-us)
-2. Remplacez `"VOTRE_CLE_API_VIRUSTOTAL_ICI"` par votre vraie clé API
-3. Exemple : `VT_API_KEY = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"`
+#### Vérification de la configuration
 
-**Sécurité :**
-- Ne partagez JAMAIS votre clé API
-- N'ajoutez pas la clé dans les commits Git
-- Utilisez un fichier `.env` pour la production
+Après configuration, l'application affichera :
+- ✅ **"VirusTotal configuré"** si la clé est valide
+- ⚠️ **"Configuration VirusTotal requise"** si la clé n'est pas configurée
 
-**Méthode alternative (recommandée) :**
-1. Copiez le fichier `env.example` vers `.env`
-2. Modifiez le fichier `.env` avec votre clé API
-3. Le fichier `.env` est automatiquement ignoré par Git
+#### Sécurité
+
+- **Ne partagez JAMAIS votre clé API**
+- **N'ajoutez pas la clé dans les commits Git**
+- **Le fichier `.env` est automatiquement ignoré par Git**
+- **Utilisez toujours la méthode .env en production**
 
 ### Ports utilisés
 - **Streamlit** : 8501 (par défaut)
